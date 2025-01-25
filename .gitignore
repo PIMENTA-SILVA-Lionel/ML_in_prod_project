@@ -1,0 +1,51 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+env/
+ENV/
+*.egg-info/
+
+# MLFlow
+mlruns/  # Le répertoire des runs de MLFlow
+mlflow.log/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Environnements virtuels Python
+.venv/
+env/
+.venv*/  # Ignore all virtual environments
+
+# Docker
+Dockerfile*
+docker-compose.yml
+
+# IDE/Editor configurations
+.vscode/
+.idea/
+
+# Système d'exploitation
+.DS_Store
+Thumbs.db
+
+# Fichiers de log
+*.log
+
+# Caches de dépendances
+*.pkl
+*.h5
+
+# Fichiers de configuration MLFlow
+mlflow.db  # Ignorer la base de données MLFlow locale
