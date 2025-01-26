@@ -17,7 +17,7 @@ ENV/
 *.egg-info/
 
 # MLFlow
-mlruns/  # Le répertoire des runs de MLFlow
+mlruns/
 mlflow.log/
 
 # Jupyter Notebooks
