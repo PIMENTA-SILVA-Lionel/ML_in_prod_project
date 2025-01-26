@@ -12,6 +12,7 @@ function App() {
       const response = await axios.post('http://127.0.0.1:5000/predict', {
         features: features.split(',').map(Number), // Convertir les données en tableau de nombres
       });
+      console.log('Réponse du serveur :', response.data);
 
       // Stocker la prédiction retournée
       setPrediction(response.data.prediction);
