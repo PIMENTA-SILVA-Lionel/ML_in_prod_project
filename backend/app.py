@@ -4,6 +4,8 @@ import mlflow.pyfunc
 import numpy as np
 from mlflow.tracking import MlflowClient
 
+from mlflowmodel import train_and_log_model, load_model
+
 app = Flask(__name__)
 CORS(app)
 
@@ -15,11 +17,10 @@ client = MlflowClient()
 # Rechercher toutes les versions du modèle
 model_versions = client.search_model_versions(f"name='{model_name}'")
 
-# Trouver la version la plus récente
 latest_version = max(model_versions, key=lambda x: int(x.version)).version
 
-# Charger la dernière version spécifiée
-model = mlflow.pyfunc.load_model(f"models:/{model_name}/{latest_version}")
+train_and_log_model()
+model = load_model()
 
 @app.route('/predict', methods=['POST'])
 def predict():
