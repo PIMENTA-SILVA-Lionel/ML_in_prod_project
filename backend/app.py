@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # Import CORS
 import mlflow.pyfunc
 import numpy as np
 
 app = Flask(__name__)
+CORS(app)  # Autoriser les requêtes cross-origin
 
 # Charger le modèle à partir de MLFlow (ici on charge le dernier modèle versionné)
 model_name = "model"
