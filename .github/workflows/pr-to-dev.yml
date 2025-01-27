@@ -6,7 +6,7 @@ on:
       - dev
 
 jobs:
-  build:
+  frontend:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -17,13 +17,49 @@ jobs:
         with:
           node-version: '14'
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          npm install
 
-      # Run integration tests
-      - name: Run integration tests
-        run: npm run test:integration
+      - name: Build the frontend project
+        run: |
+          cd frontend
+          npm run build
 
-      # This is the final step where you manually merge after the workflow succeeds
-      - name: Waiting for manual merge
-        run: echo "Everything looks good. Please manually merge into dev."
+      - name: Run frontend tests
+        run: |
+          cd frontend
+          npm run test:integration
+
+  backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python (or Node.js, selon votre backend)
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'  # Remplacez par `node-version: '14'` si vous utilisez Node.js pour le backend
+
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          pip install -r requirements.txt  # Remplacez par `npm install` si c'est un projet Node.js
+
+      - name: Run backend tests
+        run: |
+          cd backend
+          pytest  # Utilisez `npm test` ou un autre outil de test si vous utilisez Node.js
+
+  # Ce job peut être ajusté en fonction de vos besoins pour un déploiement ou une autre tâche
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [frontend, backend]
+    
+    steps:
+      - name: Deploy to server or docker
+        run: |
+          echo "Déploiement sur le serveur ou dans Docker"
