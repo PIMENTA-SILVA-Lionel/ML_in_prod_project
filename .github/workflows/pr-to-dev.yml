@@ -6,50 +6,40 @@ on:
       - dev
 
 jobs:
-  frontend:
+  docker-compose:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
         with:
-          node-version: '14'
+          version: latest
 
-      - name: Install frontend dependencies
+      - name: Set up Docker Compose
         run: |
-          cd frontend
-          npm install  # Installe toutes les dépendances nécessaires, y compris @testing-library/react et @testing-library/dom
+          sudo apt-get install -y docker-compose
 
-      - name: Build the frontend project
+      - name: Build and run containers with docker-compose
         run: |
-          cd frontend
-          npm run build
+          docker-compose up --build -d  # Démarre les services en arrière-plan
+
+      - name: Wait for services to be ready
+        run: |
+          # Attendre quelques secondes que les services soient prêts
+          sleep 10
 
       - name: Run frontend tests
         run: |
-          cd frontend
-          npm test  # Exécute les tests après l'installation des dépendances
+          # Exécute les tests frontend dans le conteneur
+          docker-compose exec frontend npm test
 
-  backend:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
-
-      - name: Install backend dependencies
+      - name: Run backend tests
         run: |
-          cd backend
-          pip install -r requirements.txt
+          # Exécute les tests backend dans le conteneur (si applicable)
+          docker-compose exec backend pytest
 
-      - name: Start Flask application
+      - name: Shutdown Docker Compose
         run: |
-          cd backend
-          nohup python app.py &  # Démarre l'application Flask en arrière-plan
+          docker-compose down  # Arrête les services après les tests
