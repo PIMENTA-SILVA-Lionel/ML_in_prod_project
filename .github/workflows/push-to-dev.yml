@@ -1,0 +1,21 @@
+name: Push to Staging
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  push-to-staging:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Push changes to the staging branch
+      - name: Push to staging
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "github-actions@github.com"
+          git checkout -b staging
+          git push origin staging

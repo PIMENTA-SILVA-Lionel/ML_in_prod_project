@@ -1,0 +1,44 @@
+name: Pull Request to Dev
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  docker-compose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+        with:
+          version: latest
+
+      - name: Set up Docker Compose
+        run: |
+          sudo apt-get install -y docker-compose
+
+      - name: Build and run containers with docker-compose
+        run: |
+          docker-compose up --build -d  # Démarre les services en arrière-plan
+
+      - name: Wait for services to be ready
+        run: |
+          # Attendre quelques secondes que les services soient prêts
+          sleep 10
+
+      # - name: Run frontend tests
+      #   run: |
+      #     docker-compose exec -T frontend npm test
+
+      # - name: Run backend tests
+      #   run: |
+      #     # Exécute les tests backend dans le conteneur
+      #     docker-compose exec -T backend pytest
+
+      - name: Shutdown Docker Compose
+        run: |
+          docker-compose down  # Arrête les services après les tests
