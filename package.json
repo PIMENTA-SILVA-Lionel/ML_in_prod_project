@@ -1,8 +1,9 @@
 {
   "name": "ml_in_prod_project",
   "version": "1.0.0",
-  "description": "",
+  "description": "ML in production project",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:e2e": "mocha e2e_test/e2e_test.js"
@@ -19,7 +20,9 @@
   "homepage": "https://github.com/PIMENTA-SILVA-Lionel/ML_in_prod_project#readme",
   "dependencies": {
     "express": "^4.21.2",
-    "selenium-webdriver": "^4.28.1"
+    "selenium-webdriver": "^4.28.1",
+    "chromedriver": "^114.0.0", 
+    "geckodriver": "^2.0.0"
   },
   "devDependencies": {
     "mocha": "^11.1.0"
