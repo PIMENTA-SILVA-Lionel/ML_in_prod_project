@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test:e2e": "mocha e2e_test/e2e_test.js"
+    "test:e2e": "mocha --loader esm e2e_test/e2e_test.mjs"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
   "dependencies": {
     "express": "^4.21.2",
     "selenium-webdriver": "^4.28.1",
-    "chromedriver": "^114.0.0", 
+    "chromedriver": "^114.0.0",
     "geckodriver": "^2.0.0"
   },
   "devDependencies": {

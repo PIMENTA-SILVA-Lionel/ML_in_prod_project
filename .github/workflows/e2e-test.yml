@@ -20,28 +20,18 @@ jobs:
       with:
         node-version: 16
 
-    # 3. Install dependencies (Node.js and Mocha)
+    # 3. Install dependencies
     - name: Install dependencies
-      run: |
-        npm install
-        npm install mocha --save-dev
+      run: npm install
 
-        # 4. Install Google Chrome and ChromeDriver
-    #4. Install Google Chrome and ChromeDriver
-    - name: Install Google Chrome and ChromeDriver
+    # 4. Set up Chrome and ChromeDriver for Selenium
+    - name: Set up ChromeDriver and Chromium
       run: |
         sudo apt-get update
-        sudo apt-get install -y wget
-        wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-        echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
-        sudo apt-get update
-        sudo apt-get install -y google-chrome-stable
-        sudo apt-get install -y chromium-chromedriver
-    
-    - name: Verify Chrome installation
-      run: which google-chrome
+        sudo apt-get install -y chromium-browser chromium-chromedriver
+        chromedriver --version
+        chromium-browser --version
 
-
-    # 5. Run the Selenium E2E test with Mocha
+    # 5. Run the Selenium E2E test
     - name: Run Selenium E2E test
-      run: npx mocha e2e_test/e2e_test.mjs
+      run: npm run test:e2e
