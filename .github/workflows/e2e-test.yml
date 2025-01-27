@@ -1,0 +1,40 @@
+name: Selenium E2E Test
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  e2e-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Checkout the code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # 2. Set up Node.js environment
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+
+    # 3. Install dependencies (if required by your project)
+    - name: Install dependencies
+      run: npm install
+
+    # 4. Set up Chrome and ChromeDriver for Selenium
+    - name: Install ChromeDriver
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y chromium-browser chromium-chromedriver
+
+    - name: Verify ChromeDriver version
+      run: |
+        chromedriver --version
+        chromium-browser --version
+
+    # 5. Run the Selenium E2E test
+    - name: Run Selenium E2E test
+      run: node e2e_test/test-e2e.js
