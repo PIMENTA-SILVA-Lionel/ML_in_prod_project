@@ -20,12 +20,14 @@ jobs:
       with:
         node-version: 16
 
-    # 3. Install dependencies (if required by your project)
+    # 3. Install dependencies (Node.js and Mocha)
     - name: Install dependencies
-      run: npm install
+      run: |
+        npm install
+        npm install mocha --save-dev
 
     # 4. Set up Chrome and ChromeDriver for Selenium
-    - name: Install ChromeDriver
+    - name: Install Chrome and ChromeDriver
       run: |
         sudo apt-get update
         sudo apt-get install -y chromium-browser chromium-chromedriver
@@ -35,6 +37,6 @@ jobs:
         chromedriver --version
         chromium-browser --version
 
-    # 5. Run the Selenium E2E test
+    # 5. Run the Selenium E2E test with Mocha
     - name: Run Selenium E2E test
-      run: node e2e_test/test-e2e.js
+      run: npx mocha e2e_test/e2e_test.js
