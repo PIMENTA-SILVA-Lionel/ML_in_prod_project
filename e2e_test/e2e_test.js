@@ -4,7 +4,7 @@ const assert = require('assert');
 
 // Définition du test
 describe('e2e_test', function () {
-  this.timeout(30000); // Timeout étendu pour les tests E2E
+  this.timeout(30000);
   let driver;
 
   beforeEach(async function () {
