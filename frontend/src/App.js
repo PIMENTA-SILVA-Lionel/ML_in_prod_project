@@ -105,7 +105,7 @@ function App() {
           {/* Affichage de l'image */}
           <img
             src={`/images/${prediction}.jpg`}
-            alt={`Image de l'espèce ${prediction}`}
+            alt={`Espèce ${prediction}`}
             style={{ maxWidth: '300px', marginTop: '10px' }}
           />
         </div>

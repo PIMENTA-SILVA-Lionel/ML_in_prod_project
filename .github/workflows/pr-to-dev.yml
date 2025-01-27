@@ -39,27 +39,27 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Python (or Node.js, selon votre backend)
+      - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.x'  # Remplacez par `node-version: '14'` si vous utilisez Node.js pour le backend
+          python-version: '3.x'
 
       - name: Install backend dependencies
         run: |
           cd backend
-          pip install -r requirements.txt  # Remplacez par `npm install` si c'est un projet Node.js
+          pip install -r requirements.txt
 
-      - name: Run backend tests
+      - name: Start Flask application
         run: |
           cd backend
-          pytest  # Utilisez `npm test` ou un autre outil de test si vous utilisez Node.js
+          nohup python app.py &  # Démarre l'application Flask en arrière-plan
 
-  # Ce job peut être ajusté en fonction de vos besoins pour un déploiement ou une autre tâche
   deploy:
     runs-on: ubuntu-latest
     needs: [frontend, backend]
-    
+
     steps:
-      - name: Deploy to server or docker
+      - name: Deploy to server or Docker
         run: |
           echo "Déploiement sur le serveur ou dans Docker"
+          # Vous pouvez ajouter ici les étapes de déploiement, par exemple sur un serveur ou dans un container Docker.
