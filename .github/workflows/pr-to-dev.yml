@@ -37,7 +37,7 @@ jobs:
       - name: Run backend tests
         run: |
           # Exécute les tests backend dans le conteneur (si applicable)
-          docker-compose exec backend pytest
+          docker-compose exec -T backend pytest
 
       - name: Shutdown Docker Compose
         run: |
