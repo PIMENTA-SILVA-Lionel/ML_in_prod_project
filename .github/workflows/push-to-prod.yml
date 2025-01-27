@@ -1,0 +1,38 @@
+name: Push to Production
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Set up environment (if applicable)
+      - name: Set up Node.js (example, change as per your tech stack)
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      # Install dependencies and build the app
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the app
+        run: npm run build
+
+      # Run all tests
+      - name: Run all tests
+        run: npm test
+
+      # Push changes to the production branch (main)
+      - name: Push to production (main)
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "github-actions@github.com"
+          git checkout -b main
+          git push origin main

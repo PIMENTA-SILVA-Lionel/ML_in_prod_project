@@ -1,0 +1,35 @@
+name: Pull Request to Dev
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      # Check out the code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Set up environment (if applicable)
+      - name: Set up Node.js (example, change as per your tech stack)
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      # Install dependencies and build the app (if applicable)
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the app
+        run: npm run build
+
+      # Run integration tests
+      - name: Run integration tests
+        run: npm run test:integration
+
+      # This is the final step where you manually merge after the workflow succeeds
+      - name: Waiting for manual merge
+        run: echo "Everything looks good. Please manually merge into dev."
