@@ -6,24 +6,21 @@ on:
       - dev
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
     steps:
-      # Check out the code
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Set up environment (if applicable)
-      - name: Set up Node.js (example, change as per your tech stack)
+      - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '14'
 
-      # Install dependencies and build the app (if applicable)
       - name: Install dependencies
         run: npm install
 
-      - name: Build the app
+      - name: Build the project
         run: npm run build
 
       # Run integration tests
