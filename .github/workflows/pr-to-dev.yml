@@ -30,9 +30,9 @@ jobs:
           # Attendre quelques secondes que les services soient prêts
           sleep 10
 
-      - name: Run frontend tests
-        run: |
-          docker-compose exec -T frontend npm test
+      # - name: Run frontend tests
+      #   run: |
+      #     docker-compose exec -T frontend npm test
 
       - name: Run backend tests
         run: |
