@@ -1,5 +1,13 @@
 // Import des modules nécessaires
-const { Builder, By } = require('selenium-webdriver');
+const chrome = require('selenium-webdriver/chrome');
+
+driver = await new Builder()
+  .forBrowser('chrome')
+  .setChromeOptions(
+    new chrome.Options().setBinary('/usr/bin/google-chrome') 
+  )
+  .build();
+
 const assert = require('assert');
 
 // Définition du test
