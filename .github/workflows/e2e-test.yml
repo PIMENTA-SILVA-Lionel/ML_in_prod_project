@@ -44,4 +44,4 @@ jobs:
 
     # 5. Run the Selenium E2E test with Mocha
     - name: Run Selenium E2E test
-      run: npx mocha e2e_test/e2e_test.js
+      run: npx mocha e2e_test/e2e_test.mjs
