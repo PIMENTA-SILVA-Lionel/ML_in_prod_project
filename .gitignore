@@ -28,9 +28,6 @@ mlflow.log/
 env/
 .venv*/  # Ignore all virtual environments
 
-# Docker
-Dockerfile*
-
 # IDE/Editor configurations
 .vscode/
 .idea/
