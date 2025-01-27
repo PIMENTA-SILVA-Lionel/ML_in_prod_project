@@ -20,7 +20,7 @@ jobs:
       - name: Install frontend dependencies
         run: |
           cd frontend
-          npm install
+          npm install  # Installe toutes les dépendances nécessaires, y compris @testing-library/react et @testing-library/dom
 
       - name: Build the frontend project
         run: |
@@ -30,7 +30,7 @@ jobs:
       - name: Run frontend tests
         run: |
           cd frontend
-          npm run test
+          npm test  # Exécute les tests après l'installation des dépendances
 
   backend:
     runs-on: ubuntu-latest
