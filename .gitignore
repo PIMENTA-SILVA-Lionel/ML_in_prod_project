@@ -30,7 +30,6 @@ env/
 
 # Docker
 Dockerfile*
-docker-compose.yml
 
 # IDE/Editor configurations
 .vscode/
