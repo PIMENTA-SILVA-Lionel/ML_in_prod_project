@@ -12,7 +12,9 @@ describe('e2e_test', function () {
   });
 
   afterEach(async function () {
-    await driver.quit();
+    if (driver) {
+      await driver.quit();
+    }
   });
 
   it('Remplir le formulaire et envoyer', async function () {
