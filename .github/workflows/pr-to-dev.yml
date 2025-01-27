@@ -23,7 +23,7 @@ jobs:
 
       - name: Build and run containers with docker-compose
         run: |
-          docker-compose up --build -d  # Démarre les services en arrière-plan
+          docker-compose up docker-compose.yml --build -d  # Démarre les services en arrière-plan
 
       - name: Wait for services to be ready
         run: |
