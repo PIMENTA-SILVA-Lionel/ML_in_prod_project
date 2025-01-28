@@ -47,7 +47,7 @@ jobs:
   merge-branch:
     name: Auto-Merge Dev into Main
     runs-on: ubuntu-latest
-    needs: build-and-test
+    needs: docker-compose
     if: success() # Only run if the build-and-test job succeeds
     steps:
       # Step 1: Checkout the repository
