@@ -1,9 +1,9 @@
 name: Deploy to Production
 
 on:
-  push:
+  pull_request:
     branches:
-      - main  # Trigger the workflow only on pushes to the main branch
+      - main
 
 jobs:
   build-and-deploy:
