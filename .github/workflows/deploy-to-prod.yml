@@ -2,9 +2,6 @@ name: Deploy to Production
 
 #This workflow will build and push a new Docker image to DockerHub and deploy it to production using docker-compose whenever code is pushed or pulled to the main branch.
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
