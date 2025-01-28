@@ -1,6 +1,5 @@
 name: Deploy to Production
 
-# Trigger workflow when a pull request is created or pushed to the main branch.
 on:
   pull_request:
     branches:
@@ -32,8 +31,16 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y docker-compose
 
-      # Step 5: Build and Push Docker Images
+      # Step 5: Debug Docker Login
+      - name: Verify Docker Login
+        run: docker info
+
+      # Step 6: Build and Push Docker Images
       - name: Build and Push Docker Images
         run: |
           docker-compose build
           docker-compose push
+
+      # Step 7: List Images (Debugging)
+      - name: List Local Docker Images
+        run: docker images
