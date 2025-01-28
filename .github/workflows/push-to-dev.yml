@@ -26,7 +26,7 @@ jobs:
         run: |
           git fetch origin
           git checkout main
-          git pull origin main  # Assure que vous ayez la dernière version de main
+          git pull origin main
 
       # 4. Merge origin/dev into main
       - name: Merge dev into main
@@ -37,4 +37,4 @@ jobs:
       # 5. Push changes to main
       - name: Push to main
         run: |
-          git push origin main  # Assurez-vous que vous avez les permissions suffisantes pour pousser
+          git push origin main

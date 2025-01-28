@@ -23,6 +23,6 @@ describe('e2e_test', function () {
     await driver.findElement(By.css('button')).click();
 
     const result = await driver.findElement(By.id('result')).getText();
-    assert.strictEqual(result, 'expected result'); // Remplacez par le résultat attendu
+    assert.strictEqual(result, 'expected result');
   });
 });

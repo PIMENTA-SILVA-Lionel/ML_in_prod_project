@@ -43,12 +43,12 @@ jobs:
       - name: Shutdown Docker Compose
         run: |
           docker-compose down 
-      
+        
   merge-branch:
     name: Auto-Merge Dev into Main
     runs-on: ubuntu-latest
     needs: docker-compose
-    if: success() # Only run if the docker-compose job is successful
+    if: success() # Only run if the build-and-test job succeeds
     steps:
       # Step 1: Checkout the repository
       - name: Checkout the code
@@ -60,20 +60,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      # Step 3: Force merge dev into main
-      - name: Fetch the latest branches
-        run: |
-          git fetch origin
-
-      - name: Checkout the main branch
-        run: |
-          git checkout main
-
-      - name: Force merge dev into main
-        run: |
-          git merge origin/dev --strategy=theirs --no-ff --commit -m "Merge branch 'dev' into 'main' via GitHub Actions with force"
-        
-      # Step 4: Push changes to main with force
-      - name: Force push to main
-        run: |
-          git push origin main --force
+      # Step 3: Force push dev to main
+      - name: Merge dev -> main
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          from_branch: dev
+          target_branch: main
+          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+    
