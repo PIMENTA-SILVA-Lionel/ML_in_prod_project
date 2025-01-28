@@ -71,7 +71,6 @@ jobs:
 
       - name: Force merge dev into main
         run: |
-          # This ensures that all changes from dev are merged into main without conflicts
           git merge origin/dev --strategy=theirs --no-ff --commit -m "Merge branch 'dev' into 'main' via GitHub Actions with force"
         
       # Step 4: Push changes to main with force
