@@ -1,14 +1,9 @@
 name: Deploy to Production
 
 on:
-  pull_request:
+  merge:
     branches:
       - main
-      
-  workflow_run:
-    workflows: ["pr-to-dev"]
-    types:
-      - completed
 
 jobs:
   build-and-deploy:
