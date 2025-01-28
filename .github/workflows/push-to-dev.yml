@@ -25,7 +25,7 @@ jobs:
           git fetch origin
           git checkout main
 
-      # 4. Merge origin/dev into main
+      # 4. Merge origin/ dev into main
       - name: Merge dev into main
         run: |
           git merge origin/dev --no-ff --commit -m "Merge branch 'dev' into 'main' via GitHub Actions"
