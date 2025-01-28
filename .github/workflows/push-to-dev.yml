@@ -19,14 +19,18 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "github-actions@github.com"
 
-      # 3. Merge dev into main
-      - name: Merge dev into main
+      # 3. Fetch and check out the main branch
+      - name: Fetch and check out main
         run: |
           git fetch origin
           git checkout main
-          git merge origin dev --no-ff --commit -m "Merge branch 'dev' into 'main' via GitHub Actions"
 
-      # 4. Push changes to main
+      # 4. Merge origin/dev into main
+      - name: Merge dev into main
+        run: |
+          git merge origin/dev --no-ff --commit -m "Merge branch 'dev' into 'main' via GitHub Actions"
+
+      # 5. Push changes to main
       - name: Push to main
         run: |
           git push origin main
