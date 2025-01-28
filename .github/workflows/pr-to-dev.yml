@@ -34,12 +34,26 @@ jobs:
         run: |
           # Exécute les tests frontend dans le conteneur
           docker-compose exec frontend npm test
+          # Vérifiez que les tests frontend réussissent
+          if [ $? -ne 0 ]; then
+            echo "Frontend tests failed"
+            exit 1
+          fi
 
       - name: Run backend tests
         run: |
           # Exécute les tests backend dans le conteneur (si applicable)
           docker-compose exec backend pytest
+          # Vérifiez que les tests backend réussissent
+          if [ $? -ne 0 ]; then
+            echo "Backend tests failed"
+            exit 1
+          fi
 
       - name: Shutdown Docker Compose
         run: |
-          docker-compose down 
+          docker-compose down
+
+      - name: Mark PR as successfully completed
+        run: |
+          echo "PR-to-dev completed successfully!"
