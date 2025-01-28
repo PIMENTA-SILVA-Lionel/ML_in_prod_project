@@ -1,21 +1,40 @@
-name: Push to Staging
+name: Push to Main
 
 on:
-  push:
-    branches:
-      - dev
+  workflow_run:
+    workflows: ["pr-to-dev"]
+    types:
+      - completed
 
 jobs:
-  push-to-staging:
+  push-to-main:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
 
-      # Push changes to the staging branch
-      - name: Push to staging
+    steps:
+      # 1. Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Configure Git
+      - name: Configure Git
         run: |
           git config user.name "GitHub Actions"
           git config user.email "github-actions@github.com"
-          git checkout -b staging
-          git push origin staging
+
+      # 3. Fetch the latest changes from origin and ensure we are on the main branch
+      - name: Fetch and check out main
+        run: |
+          git fetch origin
+          git checkout main
+          git pull origin main
+
+      # 4. Merge origin/dev into main
+      - name: Merge dev into main
+        run: |
+          git merge origin/dev --no-ff --commit -m "Merge branch 'dev' into 'main' via GitHub Actions"
+          # Vérifiez si le merge est effectué sans conflit
+
+      # 5. Push changes to main
+      - name: Push to main
+        run: |
+          git push origin main
