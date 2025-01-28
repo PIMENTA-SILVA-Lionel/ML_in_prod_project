@@ -2,13 +2,14 @@ name: Push to Main
 
 on:
   workflow_run:
-  workflows: ["pr-to-dev"]
-  types:
-    - completed
+    workflows: ["pr-to-dev"]  # Le workflow sera déclenché uniquement après l'exécution de "pr-to-dev"
+    types:
+      - completed  # Nous attendons que "pr-to-dev" se termine avant d'exécuter celui-ci
 
 jobs:
   push-to-main:
     runs-on: ubuntu-latest
+
     steps:
       # 1. Checkout the code
       - name: Checkout code
@@ -26,7 +27,7 @@ jobs:
           git fetch origin
           git checkout main
 
-      # 4. Merge origin/ dev into main
+      # 4. Merge origin/dev into main
       - name: Merge dev into main
         run: |
           git merge origin/dev --no-ff --commit -m "Merge branch 'dev' into 'main' via GitHub Actions"
