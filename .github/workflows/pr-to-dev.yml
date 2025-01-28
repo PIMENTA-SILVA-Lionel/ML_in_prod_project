@@ -1,4 +1,4 @@
-name: Pull Request to Dev
+name: pr-to-dev
 
 on:
   pull_request:
