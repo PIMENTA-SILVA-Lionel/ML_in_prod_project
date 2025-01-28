@@ -1,6 +1,7 @@
-// e2e_test/e2e_test.mjs
-import { Builder, By, until } from 'selenium-webdriver';
-import assert from 'assert';
+const { Builder, By, Key, until, Browser } = require('selenium-webdriver')
+const assert = require('assert')
+// const chrome = require('selenium-webdriver/chrome');
+const firefox = require('selenium-webdriver/firefox');
 
 describe('e2e_test', function () {
   this.timeout(30000);
