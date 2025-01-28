@@ -26,17 +26,14 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 4. Build both Docker images using docker-compose
-      - name: Build Docker images using docker-compose
+      # Step 4: Install Docker Compose
+      - name: Install Docker Compose
         run: |
-          docker-compose -f docker-compose.prod.yml build
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
 
-      # 5. Push both Docker images to DockerHub using docker-compose
-      - name: Push Docker images to DockerHub
+      # Step 5: Build and Push Docker Images
+      - name: Build and Push Docker Images
         run: |
-          docker-compose -f docker-compose.prod.yml push
-
-      # 6. Deploy the Docker images to production using docker-compose
-      - name: Deploy to production
-        run: |
-          docker-compose -f docker-compose.prod.yml up -d
+          docker-compose build
+          docker-compose push

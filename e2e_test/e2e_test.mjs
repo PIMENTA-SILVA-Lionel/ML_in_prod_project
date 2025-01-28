@@ -3,7 +3,7 @@ import { Builder, By, until } from 'selenium-webdriver';
 import assert from 'assert';
 
 describe('e2e_test', function () {
-  this.timeout(30000); // Timeout global pour les tests
+  this.timeout(30000);
   let driver;
 
   beforeEach(async function () {
@@ -23,6 +23,6 @@ describe('e2e_test', function () {
     await driver.findElement(By.css('button')).click();
 
     const result = await driver.findElement(By.id('result')).getText();
-    assert.strictEqual(result, 'expected result');
+    assert.strictEqual(result, 'Setosa');
   });
 });
