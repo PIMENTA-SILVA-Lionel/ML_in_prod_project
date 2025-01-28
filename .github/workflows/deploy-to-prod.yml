@@ -1,12 +1,11 @@
 name: Deploy to Production
 
-#This workflow will build and push a new Docker image to DockerHub and deploy it to production using docker-compose whenever code is pushed or pulled to the main branch.
+# Trigger workflow when a pull request is created or pushed to the main branch.
 on:
   pull_request:
     branches:
       - main
-  
-      
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -18,27 +17,26 @@ jobs:
 
       # 2. Set up Docker Buildx (for cross-platform builds, if needed)
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v4
 
       # 3. Login to DockerHub using secrets
       - name: Login to DockerHub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 4. Build the Docker image
-      - name: Build Docker image
+      # 4. Build both Docker images using docker-compose
+      - name: Build Docker images using docker-compose
         run: |
-          docker build -t lionyti/ml_in_prod:latest .
-      
-      # 5. Push the Docker image to DockerHub
-      - name: Push Docker image to DockerHub
-        run: |
-          docker push lionyti/ml_in_prod:latest
+          docker-compose -f docker-compose.prod.yml build
 
-      # 6. Deploy the Docker image to production
+      # 5. Push both Docker images to DockerHub using docker-compose
+      - name: Push Docker images to DockerHub
+        run: |
+          docker-compose -f docker-compose.prod.yml push
+
+      # 6. Deploy the Docker images to production using docker-compose
       - name: Deploy to production
         run: |
-          echo "Deploying to production..."
           docker-compose -f docker-compose.prod.yml up -d

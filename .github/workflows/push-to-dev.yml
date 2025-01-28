@@ -2,9 +2,9 @@ name: Push to Main
 
 on:
   workflow_run:
-    workflows: ["pr-to-dev"]  # Le workflow sera déclenché uniquement après l'exécution de "pr-to-dev"
+    workflows: ["pr-to-dev"]
     types:
-      - completed  # Nous attendons que "pr-to-dev" se termine avant d'exécuter celui-ci
+      - completed
 
 jobs:
   push-to-main:
