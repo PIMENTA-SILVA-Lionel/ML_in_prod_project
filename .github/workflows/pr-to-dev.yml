@@ -42,4 +42,4 @@ jobs:
 
       - name: Shutdown Docker Compose
         run: |
-          docker-compose down  # Arrête les services après les tests
+          docker-compose down 
