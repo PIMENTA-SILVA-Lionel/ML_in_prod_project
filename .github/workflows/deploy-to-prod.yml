@@ -3,41 +3,40 @@ name: Deploy to Production
 on:
   push:
     branches:
-      - main
+      - main  # Trigger the workflow only on pushes to the main branch
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Check out the code
+      # 1. Check out the code from the repository
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      # Set up Docker (if Docker is needed to build and deploy)
+      # 2. Set up Docker Buildx (for cross-platform builds, if needed)
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # Login to DockerHub
+      # 3. Login to DockerHub using secrets
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Build Docker image
+      # 4. Build the Docker image
       - name: Build Docker image
         run: |
-          docker build -t your-username/your-app-name:latest .
-          
-      # Push Docker image to DockerHub
+          docker build -t lionyti/ml_in_prod:latest .
+      
+      # 5. Push the Docker image to DockerHub
       - name: Push Docker image to DockerHub
         run: |
-          docker push your-username/your-app-name:latest
+          docker push lionyti/ml_in_prod:latest
 
-      # Deploy to production (replace with actual deployment command for your app)
+      # 6. Deploy the Docker image to production
       - name: Deploy to production
         run: |
           echo "Deploying to production..."
-          # Example: Deploy using Docker Compose or Kubernetes, etc.
-          # docker-compose up -d
+          docker-compose -f docker-compose.prod.yml up -d
